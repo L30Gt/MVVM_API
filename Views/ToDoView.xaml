@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVM_API_SampleProject.Views.ToDoView"
+             Title="ToDoView">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding  ToDo.UserId}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{Binding  ToDo.Id}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label 
+            Text="{Binding  ToDo.Title}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <CheckBox 
+            IsChecked="{Binding ToDo.Completed, Mode=TwoWay}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            />
+        
+        <Label 
+            Text="{Binding ToDo.Completed}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+    
+</ContentPage>
