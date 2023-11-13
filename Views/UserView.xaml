@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MVVM_API_SampleProject.Views.UserView"
+             Title="UserView">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Entry Placeholder="" Text="{Binding User.Id}"/>
+
+            <HorizontalStackLayout>
+                <Button Text="Carregar Usuários" Command="{Binding GetUsersCommand}"/>
+            </HorizontalStackLayout>
+
+            <CollectionView x:Name="UsersCollection" ItemsSource="{Binding Users}" EmptyView="Nenhum usuário encontrado">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Frame>
+                                <VerticalStackLayout Margin="50" HorizontalOptions="Center" MaximumWidthRequest="300">
+                                    <Label
+                                        Text="{Binding Id}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                    
+                                    <Label
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Username}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Email}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.Street}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.Suite}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.City}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.Zipcode}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.Geo.Lat}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Address.Geo.Lng}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Phone}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Website}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+
+                                    <Label
+                                        Text="{Binding Company.Name}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                    <Label
+                                        Text="{Binding Company.CatchPhrase}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                    <Label
+                                        Text="{Binding Company.Bs}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>
