@@ -17,16 +17,16 @@ namespace MVVM_API_SampleProject.ViewModels
         HttpClient client;
 
         JsonSerializerOptions _serializerOptions;
-        string baseUrl = "http://jsonplaceholder.typicode.com";
+        string baseUrl = "https://jsonplaceholder.typicode.com";
 
         [ObservableProperty]
         public int _UserId;
         [ObservableProperty]
         public int _Id;
         [ObservableProperty]
-        public int _Title;
+        public string _Title;
         [ObservableProperty]
-        public int _Body;
+        public string _Body;
         [ObservableProperty]
         public ObservableCollection<Post> _posts;
 
