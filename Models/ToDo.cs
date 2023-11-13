@@ -16,8 +16,8 @@ namespace MVVM_API_SampleProject.Models
         public string Title { get; set; }
 
         private bool _completed;
-        public bool Completed 
-        { 
+        public bool Completed
+        {
             get => _completed;
             set
             {
