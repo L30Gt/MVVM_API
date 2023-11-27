@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MVVM_API_SampleProject.Models;
+using MVVM_API_SampleProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,12 +15,9 @@ namespace MVVM_API_SampleProject.ViewModels
 {
     internal partial class PostViewModel : ObservableObject, IDisposable
     {
-        HttpClient client;
+        private readonly PostService _postService;
 
-        JsonSerializerOptions _serializerOptions;
-        string baseUrl = "https://jsonplaceholder.typicode.com";
-
-        [ObservableProperty]
+        [ObservableProperty]    
         public int _UserId;
         [ObservableProperty]
         public int _Id;
@@ -32,29 +30,15 @@ namespace MVVM_API_SampleProject.ViewModels
 
         public PostViewModel()
         {
-            client = new HttpClient();
             Posts = new ObservableCollection<Post>();
-            _serializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _postService = new PostService();
         }
 
         public ICommand GetPostsCommand => new Command(async () => await LoadPostsAsync());
 
         private async Task LoadPostsAsync()
         {
-            var url = $"{baseUrl}/posts";
-            try
-            {
-                var response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    Posts = JsonSerializer.Deserialize<ObservableCollection<Post>>(content, _serializerOptions);
-                }
-            }
-            catch (Exception e) 
-            {
-                Debug.WriteLine(e.Message);
-            }
+            Posts = await _postService.GetPostsAsync();
         }
 
         public void Dispose()

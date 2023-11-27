@@ -8,7 +8,7 @@ namespace MVVM_API_SampleProject
         {
             InitializeComponent();
 
-            MainPage = new UserView();
+            MainPage = new PostView();
         }
     }
 }
