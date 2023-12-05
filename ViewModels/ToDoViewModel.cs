@@ -9,57 +9,35 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MVVM_API_SampleProject.Services;
 
 namespace MVVM_API_SampleProject.ViewModels
 {
     internal partial class ToDoViewModel : ObservableObject, IDisposable
     {
-        HttpClient client;
+        private readonly ToDoService _service;
 
-        JsonSerializerOptions _serializerOptions;
-        string baseUrl = "https://jsonplaceholder.typicode.com";
-
-        [ObservableProperty]
-        public int _UserId;
-        [ObservableProperty]
-        public int _Id;
-        [ObservableProperty]
-        public string _Title;
-        [ObservableProperty]
-        public bool _Completed;
         [ObservableProperty]
         public ObservableCollection<ToDo> _todos;
 
+        public ICommand GetToDosCommand { get; }
         public ToDoViewModel()
         {
-            client = new HttpClient();
             Todos = new ObservableCollection<ToDo>();
-            _serializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            _service = new ToDoService();
+            GetToDosCommand = new Command(async () => await LoadToDosAsync());
+            Task.Run(async () => await LoadToDosAsync());
         }
-
-        public ICommand GetToDosCommand => new Command(async () => await LoadToDosAsync());
 
         private async Task LoadToDosAsync()
         {
-            var url = $"{baseUrl}/todos";
-            try
-            {
-                var response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    Todos = JsonSerializer.Deserialize<ObservableCollection<ToDo>>(content, _serializerOptions);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            Todos = await _service.GetToDoAsync();
         }
 
         public void Dispose()
         {
             throw new NotImplementedException();
         }
+
     }
 }
