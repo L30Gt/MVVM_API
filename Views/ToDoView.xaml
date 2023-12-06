@@ -5,7 +5,7 @@
              Title="ToDoView">
     <ScrollView>
         <VerticalStackLayout>
-            <CollectionView x:Name="PostsCollection" ItemsSource="{Binding Todos}" EmptyView="Nenhum ToDos encontrado">
+            <CollectionView x:Name="ToDosCollection" ItemsSource="{Binding Todos}" EmptyView="Nenhum ToDos encontrado">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="1"/>
                 </CollectionView.ItemsLayout>

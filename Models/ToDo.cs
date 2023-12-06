@@ -25,10 +25,5 @@ namespace MVVM_API_SampleProject.Models
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Completed)));
             }
         }
-
-        public static implicit operator ToDo(List<ToDo> v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

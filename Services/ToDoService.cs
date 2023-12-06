@@ -14,7 +14,7 @@ namespace MVVM_API_SampleProject.Services
     public class ToDoService
     {
         private readonly HttpClient _httpClient;
-        private readonly System.Text.Json.JsonSerializerOptions _serializerOptions;
+        private readonly JsonSerializerOptions _serializerOptions;
         private readonly string _baseUrl = Variables.BaseUrl;
 
         public ToDoService()
