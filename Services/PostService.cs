@@ -7,43 +7,41 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using MVVM_API_SampleProject.Models;
+using MVVM_API_SampleProject.Utils;
 
 namespace MVVM_API_SampleProject.Services
 {
     public class PostService
     {
-        private HttpClient client;
-
-        private JsonSerializerOptions _serializerOptions;
-
-        private const string baseUrl = "https://jsonplaceholder.typicode.com";
+        private readonly HttpClient _httpClient;
+        private readonly JsonSerializerOptions _serializerOptions;
+        private readonly string _baseUrl = Variables.BaseUrl;
 
 
         public PostService()
         {
-            client = new HttpClient();
+            _httpClient = new HttpClient();
             _serializerOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
         public async Task<ObservableCollection<Post>> GetPostsAsync()
         {
-            var url = $"{baseUrl}/posts";
+            var url = $"{_baseUrl}/posts";
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await _httpClient.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    var posts = JsonSerializer.Deserialize<ObservableCollection<Post>>(content, _serializerOptions);
-                    return posts;
+                    return JsonSerializer.Deserialize<ObservableCollection<Post>>(content, _serializerOptions);
                 }
                 return null;
             }
 
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Debug.WriteLine(e.Message);
-                return null;
+                Console.WriteLine(ex);
+                throw new Exception(ex.Message);
             }
         }
     }

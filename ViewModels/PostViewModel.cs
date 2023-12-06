@@ -15,30 +15,24 @@ namespace MVVM_API_SampleProject.ViewModels
 {
     internal partial class PostViewModel : ObservableObject, IDisposable
     {
-        private readonly PostService _postService;
+        private readonly PostService _service;
 
-        [ObservableProperty]    
-        public int _UserId;
-        [ObservableProperty]
-        public int _Id;
-        [ObservableProperty]
-        public string _Title;
-        [ObservableProperty]
-        public string _Body;
-        [ObservableProperty]
+        [ObservableProperty] 
         public ObservableCollection<Post> _posts;
+
+        public ICommand GetPostsCommand { get; }
 
         public PostViewModel()
         {
             Posts = new ObservableCollection<Post>();
-            _postService = new PostService();
+            _service = new PostService();
+            GetPostsCommand = new Command(async () => await LoadPostsAsync());
+            Task.Run(async () => await LoadPostsAsync());
         }
-
-        public ICommand GetPostsCommand => new Command(async () => await LoadPostsAsync());
 
         private async Task LoadPostsAsync()
         {
-            Posts = await _postService.GetPostsAsync();
+            Posts = await _service.GetPostsAsync();
         }
 
         public void Dispose()
