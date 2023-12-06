@@ -6,44 +6,55 @@
 
     <ScrollView>
         <VerticalStackLayout>
-            <Entry Placeholder="Id Post" Text="{Binding Post.Id}"/>
-            <Entry Placeholder="Id do Usuario" Text="{Binding Post.UserId}"/>
-            <Entry Placeholder="Título do Post" Text="{Binding Post.Title}"/>
-            <Entry Placeholder="Conteúdo do Post" Text="{Binding Post.Body}"/>
-
-            <HorizontalStackLayout>
-                <Button Text="Carregar Posts" Command="{Binding GetPostsCommand}"/>
-            </HorizontalStackLayout>
-
             <CollectionView x:Name="PostsCollection" ItemsSource="{Binding Posts}" EmptyView="Nenhum post encontrado">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"/>
+                    <GridItemsLayout Orientation="Vertical" Span="1"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <VerticalStackLayout>
-                            <Frame>
-                                <VerticalStackLayout Margin="50" HorizontalOptions="Center" MaximumWidthRequest="180">
-                                    <Label
-                                        Text="{Binding UserId}"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
-                                    <Label
-                                        Text="{Binding Id}"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
-                                    <Label
-                                        Text="{Binding Title}"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
-                                    <Label
-                                        Text="{Binding Body}"
-                                        VerticalOptions="Center"
-                                        HorizontalOptions="Center"/>
-                                </VerticalStackLayout>
+                        <Grid Margin="10" RowSpacing="10" ColumnSpacing="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Row="0" Grid.Column="0"
+                                CornerRadius="10"
+                                Padding="10" 
+                                HorizontalOptions="FillAndExpand" 
+                                BackgroundColor="Transparent">
+
+                                <HorizontalStackLayout HorizontalOptions="Center">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding UserId, StringFormat='{0}| '}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="16" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Id}" HorizontalOptions="End" VerticalOptions="Center" FontSize="16" />
+                                </HorizontalStackLayout>
+
                             </Frame>
-                        </VerticalStackLayout>
+
+                            <Frame Grid.Row="1" Grid.Column="0"
+                                    CornerRadius="10"
+                                    Padding="10" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    BackgroundColor="Transparent">
+
+                                <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                            </Frame>
+
+                            <Frame Grid.Row="2" Grid.Column="0"
+                                    CornerRadius="10"
+                                    Padding="10" 
+                                    HorizontalOptions="FillAndExpand" 
+                                    BackgroundColor="Transparent">
+
+                                <Label Text="{Binding Body}" VerticalOptions="Center" HorizontalOptions="Center" FontSize="16"/>
+                            </Frame>
+
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
